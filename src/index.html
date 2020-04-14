@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="https://kit.fontawesome.com/65dc67808d.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    
+    <div id="container">
+
+        <div class="view" id="view-logon">
+            <div class="form">
+                <div>
+                    <input type="text" placeholder="Your name..." class="input" id="input-membername">
+                    <input type="text" placeholder="Roomname..." class="input"id="input-roomname">
+                </div>
+
+                <div>
+                    <button id="btn-create-room" class="btn">Create</button>
+                    <button id="btn-join-room" class="btn">Join</button>
+                </div>
+            </div>
+        </div> <!-- END OF ROOM LOGON -->
+
+        <div class="view" id="view-hangout">
+            <div id="hangout-room-header">
+                <div id="roomname"><h1></h1></div>
+                <div>
+                    <button id="btn-mic" class="btn"><i class="fas fa-microphone"></i></button>
+                    <button id="btn-leave-room" class="btn">Leave</button>
+                </div>
+            </div> <!-- END OF HEADER -->
+        </div> <!-- END OF HANGOUT AREA -->
+
+    </div> <!-- END OF CONTAINER -->
+
+    <script src="https://rtcmulticonnection.herokuapp.com/dist/RTCMultiConnection.min.js"></script>
+    <script src="js/libs/socket.io.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/sidebar/variables.sidebar.js"></script>
+    <script src="js/sidebar/audioCommunication.sidebar.js"></script>
+    <script src="js/sidebar/utility.sidebar.js"></script>
+    <script src="js/sidebar/ui.sidebar.js"></script>
+    <script src="js/sidebar/main.sidebar.js"></script>
+</body>
+</html>

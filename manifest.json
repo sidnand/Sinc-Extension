@@ -1,0 +1,33 @@
+{
+    "name": "Sinc",
+    "version": "0.1.0",
+    "description": "Watch Netflix anywhere, at anytime and with anyone.",
+    "permissions": [ "tabs" ],
+    "background": {
+        "scripts": [
+            "src/js/libs/socket.io.js",
+            "src/js/config.js",
+            "src/js/background/variables.background.js",
+            "src/js/background/utility.background.js",
+            "src/js/background/handleChromeEvents.background.js",
+            "src/js/background/handleContentScriptMessage.background.js",
+            "src/js/background/handleSidebarMessage.background.js",
+            "src/js/background/handleServerMessage.background.js",
+            "src/js/background/main.background.js"
+        ],
+        "persistent": true
+    },
+    "web_accessible_resources": [
+        "src/index.html",
+        "src/js/contentscript/netflix.detect.contentscript.js"
+    ],
+    "content_scripts": [
+        {
+            "js": [ "src/js/libs/toastify.js", "src/js/contentscript/main.contentscript.js" ],
+            "css": [ "src/css/libs/toastify.css", "src/css/inject.css" ],
+            "matches": [ "http://*.netflix.com/*", "https://*.netflix.com/*" ]
+        }
+    ],
+    "content_security_policy": "script-src 'self' https://rtcmulticonnection.herokuapp.com/ https://kit.fontawesome.com/65dc67808d.js; object-src 'self'",
+    "manifest_version": 2
+}
