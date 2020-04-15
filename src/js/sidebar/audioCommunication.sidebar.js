@@ -34,17 +34,23 @@ audioConnection.onstream = function (event) {
     }
 }
 
-let enterCall = roomname => {
-    audioConnection.checkPresence(roomname, function (roomExists, roomname) {
+let enterCall = user => {
+    let roomname = user.roomname
+
+    audioConnection.checkPresence(roomname, async function (roomExists, roomname) {
         if (roomExists) {
             audioConnection.join(roomname)
+            messageContentScript('message', { type: 'success', message: "You've entered the call" })
+            await messageBackground('notification', `${user.name} has entered the call`)
         } else {
             audioConnection.open(roomname)
+            messageContentScript('message', { type: 'success', message: "You've entered the call" })
+            await messageBackground('notification', `${user.name} has entered the call`)
         }
     })
 }
 
-let exitCall = () => {
+let exitCall = async user => {
     audioTag.pause()
 
     audioConnection.getAllParticipants().forEach(function (pid) {
@@ -56,4 +62,7 @@ let exitCall = () => {
     })
 
     audioConnection.closeSocket()
+
+    messageContentScript('message', { type: 'neutral', message: "You've left the call" })
+    await messageBackground('notification', `${user.name} has left the call`)
 }

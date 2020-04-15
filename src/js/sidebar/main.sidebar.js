@@ -72,17 +72,16 @@ const leaveRoom = async () => {
 // toggles the mic
 const toggleMic = async () => {
     let user = await messageBackground('get user')
+    messageContentScript('message', { type: 'neutral', message: 'Please wait...' }) // send response message
 
     if (!user.mic) {
         await messageBackground('update user', { mic: true })
-        await messageBackground('notification', `${user.name} has entered the call`)
         showMicOn()
-        enterCall(user.roomname)
+        enterCall(user)
     } else if (user.mic) {
         await messageBackground('update user', { mic: false })
-        await messageBackground('notification', `${user.name} has left the call`)
         showMicOff()
-        exitCall()
+        exitCall(user)
     }
 }
 
