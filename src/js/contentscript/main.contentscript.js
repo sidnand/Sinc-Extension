@@ -24,11 +24,6 @@ const main = () => {
 
             if (request.message === 'message') message(request.data.type, request.data.message)
 
-            if (request.from === 'sidebar') {
-                // close the sidebar
-                // if (request.message === 'close sidebar') location.href = "javascript:hideSidebar(); void 0";
-            }
-
             if (request.from === 'background') {
                 // if (request.message === 'roomname') location.href = `javascript:initalize('${request.data}'); void 0`;
                 if (request.message === 'start sync') location.href = `javascript:startSync(${request.data}); void 0`

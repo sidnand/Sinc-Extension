@@ -5,6 +5,11 @@ let videoPlayer, sessionId, player, videoTag
 let fromServer = false
 let targetNode; // node that will get observed
 
+let sidebar = document.getElementById('sidebar')
+
+sidebar.addEventListener('mouseover', () => sidebar.style.right = '1%')
+sidebar.addEventListener('mouseout', () => sidebar.style.right = '-380px')
+
 const main = () => {
     window.postMessage({ from: 'detectscript', to: 'background', message: 'set tab id' })
 
@@ -122,6 +127,6 @@ const locationChange = () => {
 
 // updates the current video
 // @param id : video id
-let updateVideo = id => window.location.href = `https://netflix.com/watch/${id}`
+const updateVideo = id => window.location.href = `https://netflix.com/watch/${id}`
 
 main()

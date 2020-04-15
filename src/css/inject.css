@@ -4,10 +4,7 @@
     width: 400px;
     position: fixed;
     top: 25%;
-    right: 1%;
     border-radius: 10px;
     transition: all 200ms ease-in-out;
-    /* opacity: 0.4; */
+    right: -380px;
 }
-
-/* #sidebar:hover { opacity: 1; } */

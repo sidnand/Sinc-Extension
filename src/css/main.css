@@ -25,6 +25,13 @@
     padding: 10px;
 }
 
+.icon {
+    width: 50px;
+    background: none;
+    font-size: 1.5em;
+    color: #333;
+}
+
 .btn {
     border: none;
     outline: none;
@@ -97,13 +104,6 @@
 
 #roomname {
     font: 400 1em Open Sans;
-    color: #333;
-}
-
-#btn-mic {
-    width: 50px;
-    background: none;
-    font-size: 1.5em;
     color: #333;
 }
 
