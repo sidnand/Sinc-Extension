@@ -1,5 +1,6 @@
 const extensionOrigin = 'chrome-extension://' + chrome.runtime.id, // extension url
-    sidebarURL = 'src/index.html' // path to sidebar html
+    sidebarURL = 'src/index.html', // path to sidebar html
+    toggleScriptURL = 'src/js/contentscript/toggleSidebar.contentscript.js'
 
 const detectScripts = {
     netflix: 'src/js/contentscript/netflix.detect.contentscript.js'
@@ -48,8 +49,9 @@ const main = () => {
             host.lastIndexOf(".")
         )
 
-        if (!isInjected(detectScripts[name]), 'script') injectScript(detectScripts[name])
         if (!isInjected(sidebarURL, 'iframe')) injectSidebar()
+        if (!isInjected(toggleScriptURL), 'script') injectScript(toggleScriptURL)
+        if (!isInjected(detectScripts[name]), 'script') injectScript(detectScripts[name])
     }
 
 }
