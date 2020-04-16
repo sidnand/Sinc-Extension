@@ -25,6 +25,7 @@ const main = () => {
 const checkURL = async () => {
     // if on video
     if (window.location.href.includes(netflixVideoURL)) {
+        window.postMessage({ from: 'detectscript', to: 'background', message: 'toggle user watching', data: true })
         console.log('Waiting for video tag...')
 
         document.getElementById('appMountPoint').style.opacity = 0
@@ -53,7 +54,7 @@ const checkURL = async () => {
         }, 100)
     }
     // exit sync
-    // else if (!window.location.href.includes(netflixVideoURL)) exitVideoSync()
+    else if (!window.location.href.includes(netflixVideoURL)) window.postMessage({ from: 'detectscript', to: 'background', message: 'toggle user watching', data: false })
 }
 
 let startSync = isInRoom => {

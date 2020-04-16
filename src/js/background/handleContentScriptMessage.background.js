@@ -2,6 +2,8 @@ let handleContentScriptMessage = (request, sender, respond) => {
 
     if (request.message === 'set tab id') user.tabID = sender.tab.id
 
+    if (request.message === 'toggle user watching') socket.emit('toggle user watching', user.roomname, request.data)
+
     if (request.message === 'user is setup') {
         if (user.roomname !== null) socket.emit('update setup count', user.roomname)
         else if (user.roomname == null) messageContentScript('start sync', false)
