@@ -14,6 +14,7 @@ const DOM = {
         roomname: document.querySelector('#roomname')
     },
     view: {
+        loading: document.querySelector('#view-loading'),
         roomLogon: document.querySelector('#view-logon'),
         hangoutArea: document.querySelector('#view-hangout')
     },

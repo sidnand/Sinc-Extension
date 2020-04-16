@@ -25,6 +25,8 @@
     padding: 10px;
 }
 
+#view-loading { display: block; }
+
 .icon {
     width: 50px;
     background: none;

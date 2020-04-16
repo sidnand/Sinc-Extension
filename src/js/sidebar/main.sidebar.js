@@ -16,9 +16,9 @@ let initalSetup = async () => {
 
     // load the correct room
     if (user.roomname === null) {
-        loadRoomLogon()
+        loadView('room logon')
     } else if (user.roomname !== null) {
-        loadHangoutArea(user)
+        loadView('hangout area', user)
     }
 
     if (user.mic) {
@@ -41,6 +41,7 @@ const createOrJoinRoom = async serverMessage => {
     if (text.name.length <= 0) messageContentScript('message', { type: 'error', message: 'Please input your name' })
     else if (text.roomname.length <= 0) messageContentScript('message', { type: 'error', message: 'Please input a room name' })
     else {
+        loadView('loading')
         // send to background and wait for a response
         let response = await messageBackground(serverMessage, { roomname: text.roomname, name: text.name })
         messageContentScript('message', { type: response.type, message: response.message }) // send response message
@@ -50,10 +51,10 @@ const createOrJoinRoom = async serverMessage => {
             // update user data and get back user
             let user = await messageBackground('update user', { roomname: response.data, name: text.name })
             // update sidebar
-            loadHangoutArea(user)
+            loadView('hangout area', user)
             DOM.input.roomname.value = ''
             DOM.input.name.value = ''
-        }
+        } else if (response.type === 'error') loadView('room logon')
     }
 }
 
@@ -65,7 +66,7 @@ const leaveRoom = async () => {
         exitCall()
         messageContentScript('message', { type: response.type, message: response.message }) // send response message
         showMicOff()
-        loadRoomLogon() // update sidebar
+        loadView('room logon')
     }
 }
 

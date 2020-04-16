@@ -4,6 +4,30 @@ const hideAllViews = () => {
     }
 }
 
+// loads a view
+// @param type : type of view
+// @data : data that needs to be passed
+const loadView = (type, data) => {
+    hideAllViews()
+
+    switch (type) {
+
+        case 'loading':
+            DOM.view.loading.style.display = 'block'
+            break;
+
+        case 'room logon':
+            DOM.view.roomLogon.style.display = 'block'
+            break;
+
+        case 'hangout area':
+            DOM.text.roomname.innerHTML = `<h1>${data.roomname}</h1>`
+            DOM.view.hangoutArea.style.display = 'block'
+            break;
+
+    }
+}
+
 const loadRoomLogon = () => {
     hideAllViews()
     DOM.view.roomLogon.style.display = 'block'
