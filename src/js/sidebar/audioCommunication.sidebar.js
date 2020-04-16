@@ -64,5 +64,5 @@ let exitCall = async user => {
     audioConnection.closeSocket()
 
     messageContentScript('message', { type: 'neutral', message: "You've left the call" })
-    await messageBackground('notification', `${user.name} has left the call`)
+    if (user !== undefined) await messageBackground('notification', `${user.name} has left the call`)
 }
