@@ -37,15 +37,27 @@ audioConnection.onstream = function (event) {
 let enterCall = user => {
     let roomname = user.roomname
 
-    audioConnection.checkPresence(roomname, async function (roomExists, roomname) {
+    audioConnection.checkPresence(roomname, function (roomExists, roomname) {
         if (roomExists) {
-            audioConnection.join(roomname)
-            messageContentScript('message', { type: 'success', message: "You've entered the call" })
-            await messageBackground('notification', `${user.name} has entered the call`)
+            audioConnection.join(roomname, () => {
+                messageContentScript('message', { type: 'success', message: "You've entered the call" })
+                chrome.runtime.sendMessage({
+                    from: 'sidebar',
+                    to: 'background',
+                    message: 'notification',
+                    data: `${user.name} has entered the call`
+                }, res => {})
+            })
         } else {
-            audioConnection.open(roomname)
-            messageContentScript('message', { type: 'success', message: "You've entered the call" })
-            await messageBackground('notification', `${user.name} has entered the call`)
+            audioConnection.open(roomname, () => {
+                messageContentScript('message', { type: 'success', message: "You've entered the call" })
+                chrome.runtime.sendMessage({
+                    from: 'sidebar',
+                    to: 'background',
+                    message: 'notification',
+                    data: `${user.name} has entered the call`
+                }, res => { })
+            })
         }
     })
 }
