@@ -1,12 +1,12 @@
 const main = async () => {
 
+    await initalSetup()
+
     chrome.runtime.onMessage.addListener((request, sender, respond) => {
         if (request.to === 'sidebar') {
             if (request.from === 'background') { handleBackgroundMessage(request, sender, respond); return true }
         }
     })
-
-    await initalSetup()
 
     DOM.button.createRoom.addEventListener('click', () => createOrJoinRoom('create room'))
     DOM.button.joinRoom.addEventListener('click', () => createOrJoinRoom('join room'))
@@ -20,18 +20,17 @@ const main = async () => {
 let initalSetup = async () => {
     let user = await messageBackground('get user')
 
+    if (user.mic) {
+        showMicOn()
+    } else if (!user.mic) {
+        showMicOff()
+    }
+
     // load the correct room
     if (user.roomname === null) {
         loadView('room logon')
     } else if (user.roomname !== null) {
         loadView('hangout area', user)
-    }
-
-    if (user.mic) {
-        enterCall(user.roomname)
-        showMicOn()
-    } else if (!user.mic) {
-        showMicOff()
     }
 }
 
@@ -69,7 +68,6 @@ const leaveRoom = async () => {
     let response = await messageBackground('leave room') // send request to leave room
 
     if (response !== null) {
-        exitCall()
         messageContentScript('message', { type: response.type, message: response.message }) // send response message
         showMicOff()
         loadView('room logon')
@@ -84,11 +82,9 @@ const toggleMic = async () => {
     if (!user.mic) {
         await messageBackground('update user', { mic: true })
         showMicOn()
-        enterCall(user)
     } else if (user.mic) {
         await messageBackground('update user', { mic: false })
         showMicOff()
-        exitCall(user)
     }
 }
 
