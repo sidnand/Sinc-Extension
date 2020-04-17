@@ -21,8 +21,10 @@ let initalSetup = async () => {
     let user = await messageBackground('get user')
 
     if (user.mic) {
+        await enterCall(user)
         showMicOn()
     } else if (!user.mic) {
+        await exitCall(user)
         showMicOff()
     }
 
@@ -65,10 +67,12 @@ const createOrJoinRoom = async serverMessage => {
 
 // removes user from the room
 const leaveRoom = async () => {
+    let user = await messageBackground('get user')
     let response = await messageBackground('leave room') // send request to leave room
 
     if (response !== null) {
         messageContentScript('message', { type: response.type, message: response.message }) // send response message
+        await exitCall(user)
         showMicOff()
         loadView('room logon')
     }
@@ -77,12 +81,13 @@ const leaveRoom = async () => {
 // toggles the mic
 const toggleMic = async () => {
     let user = await messageBackground('get user')
-    messageContentScript('message', { type: 'neutral', message: 'Please wait...' }) // send response message
 
     if (!user.mic) {
+        await enterCall(user)
         await messageBackground('update user', { mic: true })
         showMicOn()
     } else if (user.mic) {
+        await exitCall(user)
         await messageBackground('update user', { mic: false })
         showMicOff()
     }
