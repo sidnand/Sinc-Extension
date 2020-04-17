@@ -18,7 +18,26 @@ const main = () => {
     socket.on('seek', time => handleServerMessage('seek', time))
 
     // notifications from the server
-    socket.on('notification', notification => handleServerMessage('notification', notification));
+    socket.on('notification', notification => handleServerMessage('notification', notification))
+
+    socket.on('disconnect', () => {
+        if (user.roomname !== null) {
+
+            user = { // data about the user
+                roomname: null,
+                name: null,
+                mic: false,
+                tabID: null
+            }
+
+            chrome.runtime.sendMessage({
+                from: 'background',
+                to: 'sidebar',
+                message: 'disconnected'
+            }, res => { })
+
+        }
+    })
 
     // chrome browser listeners
     chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => handleTabUpdate(tabId, changeInfo, tab))

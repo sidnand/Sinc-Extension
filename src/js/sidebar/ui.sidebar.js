@@ -16,6 +16,10 @@ const loadView = (type, data) => {
             DOM.view.loading.style.display = 'block'
             break;
 
+        case 'error':
+            DOM.view.error.style.display = 'block'
+            break;
+
         case 'room logon':
             DOM.view.roomLogon.style.display = 'block'
             break;

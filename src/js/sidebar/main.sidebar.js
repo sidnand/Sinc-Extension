@@ -1,5 +1,11 @@
 const main = async () => {
 
+    chrome.runtime.onMessage.addListener((request, sender, respond) => {
+        if (request.to === 'sidebar') {
+            if (request.from === 'background') { handleBackgroundMessage(request, sender, respond); return true }
+        }
+    })
+
     await initalSetup()
 
     DOM.button.createRoom.addEventListener('click', () => createOrJoinRoom('create room'))
@@ -22,8 +28,8 @@ let initalSetup = async () => {
     }
 
     if (user.mic) {
-        showMicOn()
         enterCall(user.roomname)
+        showMicOn()
     } else if (!user.mic) {
         showMicOff()
     }

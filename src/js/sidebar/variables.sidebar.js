@@ -15,6 +15,7 @@ const DOM = {
     },
     view: {
         loading: document.querySelector('#view-loading'),
+        error: document.querySelector('#view-error'),
         roomLogon: document.querySelector('#view-logon'),
         hangoutArea: document.querySelector('#view-hangout')
     },
