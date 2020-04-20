@@ -51,14 +51,6 @@ const getVideoID = url => {
     return videoID
 }
 
-// send message to contentscript
-// @param message str : message to send
-// @param data any : data to send, if any
-const messageContentScript = (message, data = null) => {
-    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-        chrome.tabs.sendMessage(tabs[0].id, { from: 'background', to: 'contentscript', message: message, data: data })
-    })
-}
 // sends a message to sidebar
 // @param message str : message to send
 // @param data any : data to send, if any

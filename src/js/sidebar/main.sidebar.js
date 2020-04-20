@@ -1,13 +1,16 @@
 const main = async () => {
 
+    // check if user is in room and inital ui for that room
     await initalSetup()
 
+    // listen for messages from the extension
     chrome.runtime.onMessage.addListener((request, sender, respond) => {
         if (request.to === 'sidebar') {
             if (request.from === 'background') { handleBackgroundMessage(request, sender, respond); return true }
         }
     })
 
+    // dom event listeners
     DOM.button.createRoom.addEventListener('click', () => createOrJoinRoom('create room'))
     DOM.button.joinRoom.addEventListener('click', () => createOrJoinRoom('join room'))
     DOM.button.leaveRoom.addEventListener('click', leaveRoom)
@@ -20,6 +23,7 @@ const main = async () => {
 let initalSetup = async () => {
     let user = await messageBackground('get user')
 
+    // check if user was on a call
     if (user.mic) {
         await enterCall(user)
         showMicOn()
@@ -37,18 +41,23 @@ let initalSetup = async () => {
 }
 
 // creates or joins user to room
-// @param serverMessage : message to send to server
+// @param serverMessage string : message to send to server; whether to creare room or join room
 const createOrJoinRoom = async serverMessage => {
     let text = {
         roomname: DOM.input.roomname.value,
         name: DOM.input.name.value
     }
 
-    // check if room name is empty or not
+    // check if username is empty or not
     if (text.name.length <= 0) messageContentScript('message', { type: 'error', message: 'Please input your name' })
+    // check if roomname is empty or not
     else if (text.roomname.length <= 0) messageContentScript('message', { type: 'error', message: 'Please input a room name' })
     else {
+        DOM.input.roomname.value = ''
+        DOM.input.name.value = ''
         loadView('loading')
+        
+
         // send to background and wait for a response
         let response = await messageBackground(serverMessage, { roomname: text.roomname, name: text.name })
         messageContentScript('message', { type: response.type, message: response.message }) // send response message
@@ -59,8 +68,6 @@ const createOrJoinRoom = async serverMessage => {
             let user = await messageBackground('update user', { roomname: response.data, name: text.name })
             // update sidebar
             loadView('hangout area', user)
-            DOM.input.roomname.value = ''
-            DOM.input.name.value = ''
         } else if (response.type === 'error') loadView('room logon')
     }
 }

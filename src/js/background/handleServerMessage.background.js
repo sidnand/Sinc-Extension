@@ -7,6 +7,7 @@ const handleServerMessage = (message, data = null) => {
     if (message === 'pause') messageContentScript('pause')
     if (message === 'seek') messageContentScript('seek', data)
 
+    // notifications sent by other users
     if (message === 'notification') messageContentScript('message', { type: 'neutral', message: data })
 
 }

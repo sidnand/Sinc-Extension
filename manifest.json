@@ -8,6 +8,7 @@
             "src/js/libs/socket.io.js",
             "src/js/config.js",
             "src/js/background/variables.background.js",
+            "src/js/shared/utility.shared.js",
             "src/js/background/utility.background.js",
             "src/js/background/handleChromeEvents.background.js",
             "src/js/background/handleContentScriptMessage.background.js",

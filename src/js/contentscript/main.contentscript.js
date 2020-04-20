@@ -1,6 +1,6 @@
 const extensionOrigin = 'chrome-extension://' + chrome.runtime.id, // extension url
     sidebarURL = 'src/index.html', // path to sidebar html
-    toggleScriptURL = 'src/js/contentscript/toggleSidebar.contentscript.js'
+    toggleScriptURL = 'src/js/contentscript/toggleSidebar.contentscript.js' // toggle sidebar js code
 
 const detectScripts = {
     netflix: 'src/js/contentscript/netflix.detect.contentscript.js'
@@ -23,14 +23,15 @@ const main = () => {
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (request.to === 'contentscript') {
 
+            // if extension needs to show notification to user
             if (request.message === 'message') message(request.data.type, request.data.message)
 
             if (request.from === 'background') {
-                // if (request.message === 'roomname') location.href = `javascript:initalize('${request.data}'); void 0`;
+                // when all users videos are loaded
                 if (request.message === 'start sync') location.href = `javascript:startSync(${request.data}); void 0`
-
+                // change video url
                 if (request.message === 'update video') location.href = `javascript:updateVideo(${request.data}); void 0`;
-
+                // sync video
                 if (request.message === 'play') location.href = "javascript:play(); void 0";
                 if (request.message === 'pause') location.href = "javascript:pause(); void 0";
                 if (request.message === 'seek') location.href = `javascript:seek(${request.data}); void 0`;

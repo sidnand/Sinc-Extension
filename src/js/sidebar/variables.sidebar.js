@@ -3,7 +3,6 @@ const DOM = {
         createRoom: document.querySelector('#btn-create-room'),
         joinRoom: document.querySelector('#btn-join-room'),
         leaveRoom: document.querySelector('#btn-leave-room'),
-
         mic: document.querySelector('#btn-mic')
     },
     input: {
@@ -21,3 +20,5 @@ const DOM = {
     },
     allViews: document.querySelectorAll('.view')
 }
+
+const micToggleCol = { on: 'blue', off: '#333333' }

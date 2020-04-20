@@ -1,12 +1,10 @@
 let handleSidebarMessage = (request, sender, respond) => {
 
+    // when sidbar wants the user object
     if (request.message === 'get user') respond(user)
-
-    if (request.message === 'notification') {
-        socket.emit('notification', { roomname: user.roomname, notification: request.data })
-        respond(true)
-    }
-
+    // sends a notification to all other users
+    if (request.message === 'notification') { socket.emit('notification', { roomname: user.roomname, notification: request.data }); respond(true) }
+    // updates a key value pair in user object
     if (request.message === 'update user') {
         let data = request.data
 
@@ -22,7 +20,7 @@ let handleSidebarMessage = (request, sender, respond) => {
 
 const processCreateOrJoinRoom = async (message, data, respond) => {
 
-    let isInVideo = await isUserInVideo()
+    let isInVideo = await isUserInVideo() // check if user is in video
 
     // check if user is in a video
     if (isInVideo) {
@@ -39,8 +37,8 @@ const processCreateOrJoinRoom = async (message, data, respond) => {
 
 const processLeaveRoom = async respond => {
     if (user.roomname !== null) {
-        respond({ type: 'neutral', message: `Successfully left ${user.roomname}` })
         socket.emit('leave room', user.roomname)
+        respond({ type: 'neutral', message: `Successfully left ${user.roomname}` })
 
         user = { // data about the user
             roomname: null,
