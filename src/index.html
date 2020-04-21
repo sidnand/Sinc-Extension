@@ -23,7 +23,10 @@
             <div class="form">
                 <div>
                     <input type="text" placeholder="Your name..." class="input" id="input-membername">
-                    <input type="text" placeholder="Roomname..." class="input"id="input-roomname">
+                    <div>
+                        <input type="text" placeholder="Roomname..." class="input" id="input-roomname">
+                        <button class="btn" id="btn-generate-roomname">Generate</button>
+                    </div>
                 </div>
 
                 <div>
@@ -35,8 +38,8 @@
 
         <div class="view" id="view-hangout">
             <div id="hangout-room-header">
-                <div id="roomname"><h1></h1></div>
-                <div>
+                <div id="roomname"></div>
+                <div id="header-left">
                     <button id="btn-mic" class="btn icon"><i class="fas fa-microphone"></i></button>
                     <button id="btn-leave-room" class="btn">Leave</button>
                 </div>

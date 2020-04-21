@@ -26,7 +26,7 @@ const loadView = (type, data) => {
             break;
 
         case 'hangout area':
-            DOM.text.roomname.innerHTML = `<h1>${data.roomname}</h1>`
+            DOM.text.roomname.innerHTML = `<h2>${data.roomname}</h2>`
             DOM.view.hangoutArea.style.display = 'block'
             break;
 

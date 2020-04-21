@@ -71,6 +71,8 @@
 
 #btn-join-room { background-color: #4fc3f7; }
 
+#btn-generate-roomname { background-color: #e9ff6b; }
+
 #view-logon .form {
     display: flex;
     flex-direction: column;
@@ -95,14 +97,20 @@
 #hangout-room-header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+    flex-wrap: nowrap;
+    justify-content: space-between;
 }
 
-#hangout-room-header:nth-child(2) {
+#hangout-room-header #header-left {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    text-align: end;
+    flex-wrap: nowrap;
 }
+
+#hangout-room-header #header-left .btn:nth-child(1) { padding: 0; width: 40px; }
 
 #roomname {
     font: 400 1em Open Sans;
@@ -112,5 +120,5 @@
 #btn-leave-room {
     background-color: #E57373;
     color: #fff;
-    width: 90px;
+    width: 70px;
 }

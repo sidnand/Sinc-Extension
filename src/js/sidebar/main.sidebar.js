@@ -1,5 +1,5 @@
 const main = async () => {
-
+    
     // check if user is in room and inital ui for that room
     await initalSetup()
 
