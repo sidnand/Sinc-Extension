@@ -29,8 +29,10 @@ connection.iceServers = [{
 
 // when stream has started
 connection.onstream = async e => {
-    audioTag.srcObject = e.stream
-    audioTag.play()
+    if (event.userid !== connection.userid) {
+        audioTag.srcObject = e.stream
+        audioTag.play()
+    }
 }
 
 // enter a call
