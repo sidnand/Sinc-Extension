@@ -14,6 +14,7 @@ const main = async () => {
     DOM.button.createRoom.addEventListener('click', () => createOrJoinRoom('create room'))
     DOM.button.joinRoom.addEventListener('click', () => createOrJoinRoom('join room'))
     DOM.button.leaveRoom.addEventListener('click', leaveRoom)
+    DOM.button.generateRoomname.addEventListener('click', generateRoomname)
 
     DOM.button.mic.addEventListener('click', toggleMic)
 
@@ -83,6 +84,12 @@ const leaveRoom = async () => {
         showMicOff()
         loadView('room logon')
     }
+}
+
+const generateRoomname = async () => {
+    let roomname = await messageBackground('generate roomname') // send request to background
+
+    DOM.input.roomname.value = roomname
 }
 
 // toggles the mic

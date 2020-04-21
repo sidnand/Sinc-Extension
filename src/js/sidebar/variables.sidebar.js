@@ -3,6 +3,7 @@ const DOM = {
         createRoom: document.querySelector('#btn-create-room'),
         joinRoom: document.querySelector('#btn-join-room'),
         leaveRoom: document.querySelector('#btn-leave-room'),
+        generateRoomname: document.querySelector('#btn-generate-roomname'),
         mic: document.querySelector('#btn-mic')
     },
     input: {
