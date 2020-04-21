@@ -14,7 +14,9 @@ let handleSidebarMessage = (request, sender, respond) => {
 
     if (request.message === 'create room' || request.message === 'join room') { processCreateOrJoinRoom(request.message, request.data, respond); return true }
 
-    if (request.message === 'leave room') processLeaveRoom(respond); return true
+    if (request.message === 'leave room') { processLeaveRoom(respond); return true }
+
+    if (request.message === 'generate roomname') { socket.emit('generate roomname', response => respond(response)); return true }
 
 }
 
