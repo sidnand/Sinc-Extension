@@ -12,11 +12,6 @@ const main = () => {
     socket.on('update video', videoID => handleServerMessage('update video', videoID))
     socket.on('start sync', videoID => handleServerMessage('start sync'))
 
-    // syncing video itself
-    socket.on('play', () => handleServerMessage('play'))
-    socket.on('pause', () => handleServerMessage('pause'))
-    socket.on('seek', time => handleServerMessage('seek', time))
-
     // notifications from the server
     socket.on('notification', notification => handleServerMessage('notification', notification))
 
