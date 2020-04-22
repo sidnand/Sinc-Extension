@@ -24,20 +24,21 @@ const main = async () => {
 let initalSetup = async () => {
     let user = await messageBackground('get user')
 
-    // check if user was on a call
-    if (user.mic) {
-        await enterCall(user)
-        showMicOn()
-    } else if (!user.mic) {
-        await exitCall(user)
-        showMicOff()
-    }
-
     // load the correct room
     if (user.roomname === null) {
         loadView('room logon')
     } else if (user.roomname !== null) {
+        await connectRTC(user.roomname)
         loadView('hangout area', user)
+    }
+
+    // check if user was on a call
+    if (user.mic) {
+        await enterCall()
+        showMicOn()
+    } else if (!user.mic) {
+        exitCall()
+        showMicOff()
     }
 }
 
@@ -69,6 +70,7 @@ const createOrJoinRoom = async serverMessage => {
             let user = await messageBackground('update user', { roomname: response.data, name: text.name })
             // update sidebar
             loadView('hangout area', user)
+            await connectRTC(user.roomname)
         } else if (response.type === 'error') loadView('room logon')
     }
 }
@@ -79,10 +81,11 @@ const leaveRoom = async () => {
     let response = await messageBackground('leave room') // send request to leave room
 
     if (response !== null) {
-        messageContentScript('message', { type: response.type, message: response.message }) // send response message
-        await exitCall(user)
+        await disconnectRTC()
+        exitCall()
         showMicOff()
         loadView('room logon')
+        messageContentScript('message', { type: response.type, message: response.message }) // send response message
     }
 }
 
@@ -97,11 +100,11 @@ const toggleMic = async () => {
     let user = await messageBackground('get user')
 
     if (!user.mic) {
-        await enterCall(user)
+        await enterCall()
         await messageBackground('update user', { mic: true })
         showMicOn()
     } else if (user.mic) {
-        await exitCall(user)
+        exitCall()
         await messageBackground('update user', { mic: false })
         showMicOff()
     }
