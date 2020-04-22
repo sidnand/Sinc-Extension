@@ -26,15 +26,18 @@ const main = () => {
             // if extension needs to show notification to user
             if (request.message === 'message') message(request.data.type, request.data.message)
 
+            if (request.from === 'sidebar') {
+                // sync video
+                if (request.message === 'play') location.href = "javascript:play(); void 0";
+                if (request.message === 'pause') location.href = "javascript:pause(); void 0";
+                if (request.message === 'seek') location.href = `javascript:seek(${request.data}); void 0`;
+            }
+
             if (request.from === 'background') {
                 // when all users videos are loaded
                 if (request.message === 'start sync') location.href = `javascript:startSync(${request.data}); void 0`
                 // change video url
                 if (request.message === 'update video') location.href = `javascript:updateVideo(${request.data}); void 0`;
-                // sync video
-                if (request.message === 'play') location.href = "javascript:play(); void 0";
-                if (request.message === 'pause') location.href = "javascript:pause(); void 0";
-                if (request.message === 'seek') location.href = `javascript:seek(${request.data}); void 0`;
             }
 
         }

@@ -46,7 +46,6 @@ const checkURL = async () => {
                 console.log('User is setup, sending message...')
 
                 player.pause()
-                player.seek(0)
 
                 window.postMessage({ from: 'detectscript', to: 'background', message: 'user is setup' }) // send message that inital sync is done
 
@@ -63,14 +62,13 @@ let startSync = isInRoom => {
     } else if (isInRoom) {
         console.log('All users are setup, starting video...')
 
+        player.seek(0)
         document.getElementById('appMountPoint').style.opacity = 1
 
-        player.play()
-
         // video listeners
-        videoTag.addEventListener('play', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'background', message: 'play' }) })
-        videoTag.addEventListener('pause', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'background', message: 'pause' }) })
-        videoTag.addEventListener('seeking', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'background', message: 'seek', data: player.getCurrentTime() }) })
+        videoTag.addEventListener('play', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'sidebar', message: 'play' }) })
+        videoTag.addEventListener('pause', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'sidebar', message: 'pause' }) })
+        videoTag.addEventListener('seeking', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'sidebar', message: 'seek', data: player.getCurrentTime() }) })
     }
 }
 

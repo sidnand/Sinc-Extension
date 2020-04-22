@@ -7,6 +7,7 @@ const main = async () => {
     chrome.runtime.onMessage.addListener((request, sender, respond) => {
         if (request.to === 'sidebar') {
             if (request.from === 'background') { handleBackgroundMessage(request, sender, respond); return true }
+            if (request.from === 'contentscript') { handleContentScriptMessage(request, sender, respond); return true }
         }
     })
 
@@ -51,9 +52,9 @@ const createOrJoinRoom = async serverMessage => {
     }
 
     // check if username is empty or not
-    if (text.name.length <= 0) messageContentScript('message', { type: 'error', message: 'Please input your name' })
+    if (text.name.length <= 0) messageContentScript('sidebar', 'message', { type: 'error', message: 'Please input your name' })
     // check if roomname is empty or not
-    else if (text.roomname.length <= 0) messageContentScript('message', { type: 'error', message: 'Please input a room name' })
+    else if (text.roomname.length <= 0) messageContentScript('sidebar', 'message', { type: 'error', message: 'Please input a room name' })
     else {
         DOM.input.roomname.value = ''
         DOM.input.name.value = ''
@@ -62,7 +63,7 @@ const createOrJoinRoom = async serverMessage => {
 
         // send to background and wait for a response
         let response = await messageBackground(serverMessage, { roomname: text.roomname, name: text.name })
-        messageContentScript('message', { type: response.type, message: response.message }) // send response message
+        messageContentScript('sidebar', 'message', { type: response.type, message: response.message }) // send response message
 
         // if success load new section
         if (response.type === 'success') {
@@ -85,10 +86,11 @@ const leaveRoom = async () => {
         exitCall()
         showMicOff()
         loadView('room logon')
-        messageContentScript('message', { type: response.type, message: response.message }) // send response message
+        messageContentScript('sidebar', 'message', { type: response.type, message: response.message }) // send response message
     }
 }
 
+// generates a random roomname
 const generateRoomname = async () => {
     let roomname = await messageBackground('generate roomname') // send request to background
 
