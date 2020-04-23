@@ -3,6 +3,11 @@
     "version": "0.1.0",
     "description": "Watch Netflix anywhere, at anytime and with anyone.",
     "permissions": [ "tabs" ],
+    "icons": {
+        "16": "src/images/ico/16x16.png",
+        "48": "src/images/ico/48x48.png",
+        "128": "src/images/ico/128x128.png"
+    },
     "background": {
         "scripts": [
             "src/js/libs/socket.io.js",
