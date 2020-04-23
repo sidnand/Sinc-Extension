@@ -95,8 +95,10 @@ const leaveRoom = async () => {
 
 // generates a random roomname
 const generateRoomname = async () => {
+    DOM.button.generateRoomname.innerHTML = '...'
     let roomname = await messageBackground('generate roomname') // send request to background
 
+    DOM.button.generateRoomname.innerHTML = 'Generate'
     DOM.input.roomname.value = roomname
 }
 

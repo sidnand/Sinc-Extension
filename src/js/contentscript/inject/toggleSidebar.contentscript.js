@@ -15,5 +15,5 @@ function hide(e) {
     if (e.clientX < rightSide) sidebar.style.marginRight = sidebarCords.hide
 }
 
-// sidebar.addEventListener('mouseover', show)
-// sidebar.addEventListener('mouseout', function (e) { hide(e) })
+sidebar.addEventListener('mouseover', show)
+sidebar.addEventListener('mouseout', function (e) { hide(e) })

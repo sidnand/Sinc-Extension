@@ -7,8 +7,8 @@
     border-radius: 10px;
     transition: all 200ms ease-in-out;
     right: -380px;
-    /* margin-right: 0px; */
-    margin-right: 400px;
+    margin-right: 0px;
+    /* margin-right: 400px; */
 }
 
 #view-loading {
