@@ -20,9 +20,9 @@
     },
     "web_accessible_resources": [
         "src/index.html",
-        "src/js/contentscript/toggleSidebar.contentscript.js",
-        "src/js/contentscript/loader.contentscript.js",
-        "src/js/contentscript/netflix.detect.contentscript.js"
+        "src/js/contentscript/inject/toggleSidebar.contentscript.js",
+        "src/js/contentscript/inject/loader.contentscript.js",
+        "src/js/contentscript/inject/detectscripts/netflix.detect.contentscript.js"
     ],
     "content_scripts": [
         {

@@ -1,10 +1,10 @@
 const extensionOrigin = 'chrome-extension://' + chrome.runtime.id, // extension url
     sidebarURL = 'src/index.html', // path to sidebar html
-    toggleScriptURL = 'src/js/contentscript/toggleSidebar.contentscript.js', // toggle sidebar js code
-    loaderScriptURL = 'src/js/contentscript/loader.contentscript.js'
+    toggleScriptURL = 'src/js/contentscript/inject/toggleSidebar.contentscript.js', // toggle sidebar js code
+    loaderScriptURL = 'src/js/contentscript/inject/loader.contentscript.js'
 
 const detectScripts = {
-    netflix: 'src/js/contentscript/netflix.detect.contentscript.js'
+    netflix: 'src/js/contentscript/inject/detectscripts/netflix.detect.contentscript.js'
 }
 
 const main = () => {
