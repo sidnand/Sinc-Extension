@@ -4,7 +4,8 @@ const DOM = {
         joinRoom: document.querySelector('#btn-join-room'),
         leaveRoom: document.querySelector('#btn-leave-room'),
         generateRoomname: document.querySelector('#btn-generate-roomname'),
-        mic: document.querySelector('#btn-mic')
+        mic: document.querySelector('#btn-mic'),
+        settings: document.querySelector('#btn-setting')
     },
     input: {
         name: document.querySelector('#input-membername'),
@@ -19,7 +20,8 @@ const DOM = {
         roomLogon: document.querySelector('#view-logon'),
         hangoutArea: document.querySelector('#view-hangout')
     },
-    allViews: document.querySelectorAll('.view')
+    allViews: document.querySelectorAll('.view'),
+    settingsMenu: document.querySelector('#settings-menu')
 }
 
 const micToggleCol = { on: 'blue', off: '#333333' }

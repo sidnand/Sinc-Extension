@@ -36,3 +36,16 @@ const loadView = (type, data) => {
 // shows mic as on or off
 const showMicOn = () => DOM.button.mic.style.color = micToggleCol.on
 const showMicOff = () => DOM.button.mic.style.color = micToggleCol.off
+
+// toggles the settings menu
+const toggleSettings = () => {
+    if (window.getComputedStyle(DOM.settingsMenu, null).getPropertyValue("pointer-events") === 'none') {
+        DOM.settingsMenu.style.pointerEvents = 'all'
+        DOM.settingsMenu.style.opacity = 1
+        DOM.button.settings.style.transform = 'rotateZ(90deg)'
+    } else if (window.getComputedStyle(DOM.settingsMenu, null).getPropertyValue("pointer-events") === 'all') {
+        DOM.settingsMenu.style.pointerEvents = 'none'
+        DOM.settingsMenu.style.opacity = 0
+        DOM.button.settings.style.transform = 'rotateZ(0deg)'
+    }
+}

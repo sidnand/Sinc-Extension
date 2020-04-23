@@ -18,6 +18,7 @@ const main = async () => {
     DOM.button.generateRoomname.addEventListener('click', generateRoomname)
 
     DOM.button.mic.addEventListener('click', toggleMic)
+    DOM.button.settings.addEventListener('click', toggleSettings)
 
 }
 

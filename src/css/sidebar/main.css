@@ -18,6 +18,14 @@
     margin: 0 auto;
 }
 
+#footer {
+    position: fixed;
+    flex-direction: row-reverse;
+    display: flex;
+    width: 100%;
+    bottom: 0;
+}
+
 /* LOADER MODIFICATIONS */
 
 .spinner > div { background-color: #333; }
