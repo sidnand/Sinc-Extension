@@ -1,6 +1,6 @@
 {
     "name": "Sinc",
-    "version": "0.1.0",
+    "version": "1.0",
     "description": "Watch Netflix anywhere, at anytime and with anyone.",
     "permissions": [ "tabs" ],
     "icons": {
@@ -32,7 +32,7 @@
     "content_scripts": [
         {
             "js": [ "src/js/libs/toastify.js", "src/js/contentscript/main.contentscript.js" ],
-            "css": [ "src/css/libs/toastify.css", "src/css/inject.css", "src/css/shared.css" ],
+            "css": [ "src/css/libs/toastify.css", "src/css/inject.css", "src/css/loader.css" ],
             "matches": [ "http://*.netflix.com/*", "https://*.netflix.com/*" ]
         }
     ],
