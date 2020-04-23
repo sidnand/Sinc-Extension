@@ -23,7 +23,11 @@ const enterCall = async () => {
     let promise = new Promise((resolve, reject) => {
         connection.addStream({
             audio: true,
-            streamCallback: stream => resolve(stream)
+            streamCallback: async stream => {
+                let user = await messageBackground('get user')
+                await messageBackground('notification', `${user.name} has joined the call`)
+                resolve(stream)
+            }
         })
     })
 
@@ -31,10 +35,13 @@ const enterCall = async () => {
 }
 
 // exit the call
-const exitCall = () => {
+const exitCall = async () => {
     connection.streamEvents.selectAll({
         local: true
     }).forEach(function (streamEvent) {
         streamEvent.stream.getAudioTracks()[0].stop()
     })
+
+    let user = await messageBackground('get user')
+    await messageBackground('notification', `${user.name} has left the call`)
 }
