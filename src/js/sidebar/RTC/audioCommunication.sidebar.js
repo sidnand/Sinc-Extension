@@ -1,5 +1,3 @@
-let audioTag = document.createElement('audio')
-
 connection.mediaConstraints = {
     audio: true,
     video: false

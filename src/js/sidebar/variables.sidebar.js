@@ -9,7 +9,9 @@ const DOM = {
     },
     input: {
         name: document.querySelector('#input-membername'),
-        roomname: document.querySelector('#input-roomname')
+        roomname: document.querySelector('#input-roomname'),
+
+        volume: document.querySelector('#input-volume')
     },
     text: {
         roomname: document.querySelector('#roomname')
@@ -24,4 +26,8 @@ const DOM = {
     settingsMenu: document.querySelector('#settings-menu')
 }
 
+let audioTag = document.createElement('audio')
 const micToggleCol = { on: 'blue', off: '#333333' }
+let settings = {
+    volume: 1
+}

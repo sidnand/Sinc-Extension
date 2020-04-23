@@ -1,6 +1,7 @@
 const main = async () => {
     
     // check if user is in room and inital ui for that room
+    await loadSettings()
     await initalSetup()
 
     // listen for messages from the extension
@@ -19,6 +20,7 @@ const main = async () => {
 
     DOM.button.mic.addEventListener('click', toggleMic)
     DOM.button.settings.addEventListener('click', toggleSettings)
+    DOM.input.volume.addEventListener('change', () => updateVolume(DOM.input.volume.value))
 
 }
 

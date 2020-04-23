@@ -26,8 +26,8 @@
     margin: 10px;
 }
 
-.settings-option:nth-child(2) { flex-direction: column; }
-.settings-option:nth-child(2) .settings-toggle { margin: 10px; }
+.settings-option:nth-child(1) { flex-direction: column; }
+.settings-option:nth-child(1) .settings-toggle { margin: 10px; }
 
 /* SWITCH */
 /* The switch - the box around the slider */

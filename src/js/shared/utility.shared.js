@@ -18,4 +18,4 @@ const getStorage = async key => {
 
 // set a key to local storage
 // @param data : { key, value }
-const setStorage = async data => await new Promise((resolve, reject) => chrome.storage.sync.set(data, result => resolve(result.key)))
+const setStorage = async (key, value) => await new Promise((resolve, reject) => chrome.storage.sync.set({ key: value }, result => resolve()))
