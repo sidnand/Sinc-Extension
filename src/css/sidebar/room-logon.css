@@ -2,7 +2,10 @@
 
 #btn-join-room { background-color: #4fc3f7; }
 
-#btn-generate-roomname { background-color: #e9ff6b; }
+#btn-generate-roomname {
+    background-color: #e9ff6b;
+    position: relative;
+}
 
 #view-logon .form {
     display: flex;
