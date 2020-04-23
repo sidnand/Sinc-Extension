@@ -21,12 +21,13 @@
     "web_accessible_resources": [
         "src/index.html",
         "src/js/contentscript/toggleSidebar.contentscript.js",
+        "src/js/contentscript/loader.contentscript.js",
         "src/js/contentscript/netflix.detect.contentscript.js"
     ],
     "content_scripts": [
         {
             "js": [ "src/js/libs/toastify.js", "src/js/contentscript/main.contentscript.js" ],
-            "css": [ "src/css/libs/toastify.css", "src/css/inject.css" ],
+            "css": [ "src/css/libs/toastify.css", "src/css/inject.css", "src/css/shared.css" ],
             "matches": [ "http://*.netflix.com/*", "https://*.netflix.com/*" ]
         }
     ],

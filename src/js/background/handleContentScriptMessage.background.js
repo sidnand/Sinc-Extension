@@ -7,7 +7,7 @@ let handleContentScriptMessage = (request, sender, respond) => {
     // when this user's video is loaded
     if (request.message === 'user is setup') {
         if (user.roomname !== null) socket.emit('update setup count', user.roomname)
-        else if (user.roomname == null) messageContentScript('start sync', false)
+        else if (user.roomname == null) messageContentScript('background', 'start sync', false)
     }
 
     if (user.roomname !== null) {

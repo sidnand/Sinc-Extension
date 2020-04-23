@@ -9,3 +9,12 @@
     right: -380px;
     margin-right: 0px;
 }
+
+#view-loading {
+    margin: auto;
+    position: absolute;
+    left: 50%;
+    top: 35vh;
+}
+
+.spinner > div { background-color: #fff; }

@@ -26,14 +26,13 @@ const checkURL = async () => {
     // if on video
     if (window.location.href.includes(netflixVideoURL)) {
         window.postMessage({ from: 'detectscript', to: 'background', message: 'toggle user watching', data: true })
-        console.log('Waiting for video tag...')
 
         document.getElementById('appMountPoint').style.opacity = 0
+        showLoader()
 
         // waits till video tag exists
         let wait = setInterval(function() {
             if (document.getElementsByTagName('video')[0] != undefined) {
-                console.log('Video tag loaded')
                 videoTag = document.getElementsByTagName('video')[0]
                 clearInterval(wait)
 
@@ -41,9 +40,6 @@ const checkURL = async () => {
                 videoPlayer = netflix.appContext.state.playerApp.getAPI().videoPlayer
                 sessionId = videoPlayer.getAllPlayerSessionIds()[0]
                 player = videoPlayer.getVideoPlayerBySessionId(sessionId)
-
-                console.log('Got cadium player')
-                console.log('User is setup, sending message...')
 
                 player.pause()
 
@@ -57,19 +53,17 @@ const checkURL = async () => {
 }
 
 let startSync = isInRoom => {
-    if (!isInRoom) {
-        document.getElementById('appMountPoint').style.opacity = 1
-    } else if (isInRoom) {
-        console.log('All users are setup, starting video...')
-
+    if (isInRoom) {
         player.seek(0)
-        document.getElementById('appMountPoint').style.opacity = 1
 
         // video listeners
         videoTag.addEventListener('play', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'sidebar', message: 'play' }) })
         videoTag.addEventListener('pause', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'sidebar', message: 'pause' }) })
         videoTag.addEventListener('seeking', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'sidebar', message: 'seek', data: player.getCurrentTime() }) })
     }
+
+    removeLoader()
+    document.getElementById('appMountPoint').style.opacity = 1
 }
 
 const play = () => {
