@@ -39,9 +39,11 @@ let initalSetup = async () => {
     // check if user was on a call
     if (user.mic) {
         await enterCall()
+        await messageBackground('notification', `${user.name} has entered the call`)
         showMicOn()
     } else if (!user.mic) {
         exitCall()
+        await messageBackground('notification', `${user.name} has left the call`)
         showMicOff()
     }
 }
@@ -108,10 +110,12 @@ const toggleMic = async () => {
 
     if (!user.mic) {
         await enterCall()
+        await messageBackground('notification', `${user.name} has entered the call`)
         await messageBackground('update user', { mic: true })
         showMicOn()
     } else if (user.mic) {
         exitCall()
+        await messageBackground('notification', `${user.name} has left the call`)
         await messageBackground('update user', { mic: false })
         showMicOff()
     }

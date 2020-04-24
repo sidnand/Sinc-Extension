@@ -23,7 +23,6 @@ const enterCall = async () => {
             audio: true,
             streamCallback: async stream => {
                 let user = await messageBackground('get user')
-                await messageBackground('notification', `${user.name} has joined the call`)
                 resolve(stream)
             }
         })
@@ -41,5 +40,4 @@ const exitCall = async () => {
     })
 
     let user = await messageBackground('get user')
-    await messageBackground('notification', `${user.name} has left the call`)
 }
