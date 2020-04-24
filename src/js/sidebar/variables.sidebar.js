@@ -14,7 +14,8 @@ const DOM = {
         volume: document.querySelector('#input-volume')
     },
     text: {
-        roomname: document.querySelector('#roomname')
+        roomname: document.querySelector('#roomname'),
+        callVolume: document.querySelector('#call-volume')
     },
     view: {
         loading: document.querySelector('#view-loading'),
@@ -30,4 +31,13 @@ let audioTag = document.createElement('audio')
 const micToggleCol = { on: 'blue', off: '#333333' }
 let settings = {
     volume: 1
+}
+
+const emojies = {
+    hourglass: 0x231b,
+    speaker: {
+        load: 0x1f50a,
+        mid: 0x1f509,
+        mute: 0x1f507
+    }
 }

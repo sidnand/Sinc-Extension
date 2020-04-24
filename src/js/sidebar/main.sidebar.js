@@ -95,7 +95,7 @@ const leaveRoom = async () => {
 
 // generates a random roomname
 const generateRoomname = async () => {
-    DOM.button.generateRoomname.innerHTML = '...'
+    DOM.button.generateRoomname.innerHTML = String.fromCodePoint(emojies.hourglass)
     let roomname = await messageBackground('generate roomname') // send request to background
 
     DOM.button.generateRoomname.innerHTML = 'Generate'
