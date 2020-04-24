@@ -24,7 +24,7 @@ const updateVolume = v => {
 // changes the emoji on the volume text
 const updateVolumeText = () => {
     if (DOM.input.volume.value == 0) DOM.text.callVolume.innerHTML = `Call Volume ${String.fromCodePoint(emojies.speaker.mute)}`
-    if (DOM.input.volume.value < 50 && DOM.input.volume.value != ) DOM.text.callVolume.innerHTML = `Call Volume ${String.fromCodePoint(emojies.speaker.mid)}`
+    if (DOM.input.volume.value < 50 && DOM.input.volume.value != 0) DOM.text.callVolume.innerHTML = `Call Volume ${String.fromCodePoint(emojies.speaker.mid)}`
     if (DOM.input.volume.value >= 50) DOM.text.callVolume.innerHTML = `Call Volume ${String.fromCodePoint(emojies.speaker.load)}`
 }
 

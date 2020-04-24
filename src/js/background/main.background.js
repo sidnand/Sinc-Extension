@@ -31,6 +31,8 @@ const main = () => {
                 message: 'disconnected'
             }, res => { })
 
+            messageContentScript('background', 'message', { type: 'error', message: "Disconnected" })
+
         }
     })
 

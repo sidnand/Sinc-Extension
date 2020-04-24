@@ -29,6 +29,8 @@ const checkURL = async () => {
 
         document.getElementById('appMountPoint').style.opacity = 0
         showLoader()
+        window.postMessage({ from: 'detectscript', to: 'contentscript', message: 'notification', data: 'Waiting for video' })
+        console.log('Waiting for video tag')
 
         // waits till video tag exists
         let wait = setInterval(function() {
@@ -43,6 +45,8 @@ const checkURL = async () => {
 
                 player.pause()
 
+                window.postMessage({ from: 'detectscript', to: 'contentscript', message: 'notification', data: 'Video has loaded, waiting for others' })
+                console.log('Video tag loaded')
                 window.postMessage({ from: 'detectscript', to: 'background', message: 'user is setup' }) // send message that inital sync is done
 
             }
@@ -54,6 +58,8 @@ const checkURL = async () => {
 
 let startSync = isInRoom => {
     if (isInRoom) {
+        window.postMessage({ from: 'detectscript', to: 'contentscript', message: 'notification', data: 'Everyone is setup, starting video' })
+        console.log('All users have joined. starting video')
         player.seek(0)
 
         // video listeners

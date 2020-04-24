@@ -16,7 +16,13 @@ const main = () => {
             return
 
         // check if from detect script
-        if (request.data.from === 'detectscript') chrome.runtime.sendMessage({ from: 'contentscript', to: request.data.to, message: request.data.message, data: request.data.data }) // send message
+        if (request.data.from === 'detectscript') {
+            if (request.data.to === 'contentscript') {
+                if (request.data.message === 'notification') message('neutral', request.data.data)
+            }
+            
+            chrome.runtime.sendMessage({ from: 'contentscript', to: request.data.to, message: request.data.message, data: request.data.data }) // send message
+        }
 
     })
 
@@ -36,7 +42,7 @@ const main = () => {
 
             if (request.from === 'background') {
                 // when all users videos are loaded
-                if (request.message === 'start sync') location.href = `javascript:startSync(${request.data}); void 0`
+                if (request.message === 'start sync') location.href = `javascript:startSync(${request.data}, true); void 0`
                 // change video url
                 if (request.message === 'update video') location.href = `javascript:updateVideo(${request.data}); void 0`;
             }
