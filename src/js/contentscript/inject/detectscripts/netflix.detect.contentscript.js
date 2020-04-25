@@ -24,49 +24,48 @@ const main = () => {
 
 const checkURL = async () => {
     // if on video
-    if (window.location.href.includes(netflixVideoURL)) {
-        window.postMessage({ from: 'detectscript', to: 'background', message: 'toggle user watching', data: true })
+    if (window.location.href.includes(netflixVideoURL)) window.postMessage({ from: 'detectscript', to: 'background', message: 'toggle user watching', data: true })
 
-        document.getElementById('appMountPoint').style.opacity = 0
-        showLoader()
-        window.postMessage({ from: 'detectscript', to: 'contentscript', message: 'notification', data: 'Waiting for video' })
-        console.log('Waiting for video tag')
-
-        // waits till video tag exists
-        let wait = setInterval(function() {
-            if (document.getElementsByTagName('video')[0] != undefined) {
-                videoTag = document.getElementsByTagName('video')[0]
-                clearInterval(wait)
-
-                // get cadium player
-                videoPlayer = netflix.appContext.state.playerApp.getAPI().videoPlayer
-                sessionId = videoPlayer.getAllPlayerSessionIds()[0]
-                player = videoPlayer.getVideoPlayerBySessionId(sessionId)
-
-                player.pause()
-
-                window.postMessage({ from: 'detectscript', to: 'contentscript', message: 'notification', data: 'Video has loaded, waiting for others' })
-                console.log('Video tag loaded')
-                window.postMessage({ from: 'detectscript', to: 'background', message: 'user is setup' }) // send message that inital sync is done
-
-            }
-        }, 100)
-    }
     // exit sync
     else if (!window.location.href.includes(netflixVideoURL)) window.postMessage({ from: 'detectscript', to: 'background', message: 'toggle user watching', data: false })
 }
 
-let startSync = isInRoom => {
-    if (isInRoom) {
-        window.postMessage({ from: 'detectscript', to: 'contentscript', message: 'notification', data: 'Everyone is setup, starting video' })
-        console.log('All users have joined. starting video')
-        player.seek(0)
+let initalizeSync = () => {
+    document.getElementById('appMountPoint').style.opacity = 0.1
+    showLoader()
+    window.postMessage({ from: 'detectscript', to: 'contentscript', message: 'notification', data: 'Waiting for video' })
+    console.log('Waiting for video tag')
 
-        // video listeners
-        videoTag.addEventListener('play', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'sidebar', message: 'play' }) })
-        videoTag.addEventListener('pause', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'sidebar', message: 'pause' }) })
-        videoTag.addEventListener('seeking', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'sidebar', message: 'seek', data: player.getCurrentTime() }) })
-    }
+    // waits till video tag exists
+    let wait = setInterval(function () {
+        if (document.getElementsByTagName('video')[0] != undefined) {
+            videoTag = document.getElementsByTagName('video')[0]
+            clearInterval(wait)
+
+            // get cadium player
+            videoPlayer = netflix.appContext.state.playerApp.getAPI().videoPlayer
+            sessionId = videoPlayer.getAllPlayerSessionIds()[0]
+            player = videoPlayer.getVideoPlayerBySessionId(sessionId)
+
+            player.pause()
+
+            window.postMessage({ from: 'detectscript', to: 'contentscript', message: 'notification', data: 'Video has loaded, waiting for others' })
+            console.log('Video tag loaded')
+            window.postMessage({ from: 'detectscript', to: 'background', message: 'user is setup' }) // send message that inital sync is done
+
+        }
+    }, 100)
+}
+
+let startSync = () => {
+    window.postMessage({ from: 'detectscript', to: 'contentscript', message: 'notification', data: 'Everyone is setup, starting video' })
+    console.log('All users have joined. starting video')
+    player.seek(0)
+
+    // video listeners
+    videoTag.addEventListener('play', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'sidebar', message: 'play' }) })
+    videoTag.addEventListener('pause', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'sidebar', message: 'pause' }) })
+    videoTag.addEventListener('seeking', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'sidebar', message: 'seek', data: player.getCurrentTime() }) })
 
     removeLoader()
     document.getElementById('appMountPoint').style.opacity = 1
