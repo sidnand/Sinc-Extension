@@ -4,11 +4,14 @@ let handleContentScriptMessage = (request, sender, respond) => {
     if (request.message === 'set tab id') user.tabID = sender.tab.id
     // increament user watching int on server
     if (request.message === 'toggle user watching') {
-        // if user is in a room, send to server plus tell content script to initalize the script
         if (user.roomname !== null) {
             socket.emit('toggle user watching', user.roomname, request.data)
-            messageContentScript('background', 'initalize sync')
+            // if user is in a video and in a room
+            // start the sync
+            if (request.data) messageContentScript('background', 'initalize sync', true)
         }
+        // if user is not in a room, play video like normal
+        else if (user.roomname === null) messageContentScript('background', 'initalize sync', false)
     }
     // when this user's video is loaded
     if (request.message === 'user is setup') {

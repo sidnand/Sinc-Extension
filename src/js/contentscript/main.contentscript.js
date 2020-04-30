@@ -41,7 +41,7 @@ const main = () => {
             }
 
             if (request.from === 'background') {
-                if (request.message === 'initalize sync') location.href = `javascript:initalizeSync(); void 0`
+                if (request.message === 'initalize sync') location.href = `javascript:initalizeSync(${request.data}); void 0`
 
                 // when all users videos are loaded
                 if (request.message === 'start sync') location.href = `javascript:startSync(${request.data}, true); void 0`
