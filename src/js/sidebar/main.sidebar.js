@@ -41,11 +41,7 @@ let initalSetup = async () => {
         await enterCall()
         await messageBackground('notification', `${user.name} has entered the call`)
         showMicOn()
-    } else if (!user.mic) {
-        exitCall()
-        await messageBackground('notification', `${user.name} has left the call`)
-        showMicOff()
-    }
+    } else if (!user.mic) showMicOff()
 }
 
 // creates or joins user to room
