@@ -20,7 +20,6 @@ const main = async () => {
 
     DOM.button.mic.addEventListener('click', toggleMic)
     DOM.button.settings.addEventListener('click', toggleSettings)
-    DOM.input.volume.addEventListener('change', () => updateVolume(DOM.input.volume.value))
 
 }
 

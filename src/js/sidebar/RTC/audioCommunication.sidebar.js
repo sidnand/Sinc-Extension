@@ -33,11 +33,10 @@ const enterCall = async () => {
 
 // exit the call
 const exitCall = async () => {
+    audioTag.pause()
     connection.streamEvents.selectAll({
         local: true
     }).forEach(function (streamEvent) {
         streamEvent.stream.getAudioTracks()[0].stop()
     })
-
-    let user = await messageBackground('get user')
 }
