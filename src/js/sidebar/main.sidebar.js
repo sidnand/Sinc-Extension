@@ -87,6 +87,7 @@ const leaveRoom = async () => {
         exitCall()
         showMicOff()
         loadView('room logon')
+        DOM.dashboard.innerHTML = `<h2>Others in this room will show up here...</h2>`
         messageContentScript('sidebar', 'message', { type: response.type, message: response.message }) // send response message
     }
 }
@@ -107,12 +108,14 @@ const toggleMic = async () => {
     if (!user.mic) {
         await enterCall()
         await messageBackground('notification', `${user.name} has entered the call`)
+        await messageBackground('toggle mic', true)
         await send({ memberMic: { id: user.id, mic: true } })
         await messageBackground('update user', { mic: true })
         showMicOn()
     } else if (user.mic) {
         exitCall()
         await messageBackground('notification', `${user.name} has left the call`)
+        await messageBackground('toggle mic', false)
         await send({ memberMic: { id: user.id, mic: false } })
         await messageBackground('update user', { mic: false })
         showMicOff()

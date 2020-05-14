@@ -4,6 +4,9 @@ let handleSidebarMessage = (request, sender, respond) => {
     if (request.message === 'get user') respond(user)
     // sends a notification to all other users
     if (request.message === 'notification') { socket.emit('notification', { roomname: user.roomname, notification: request.data }); respond(true) }
+
+    if (request.message === 'toggle mic') { socket.emit('toggle mic', request.data); respond(true) }
+
     // updates a key value pair in user object
     if (request.message === 'update user') {
         let data = request.data

@@ -30,15 +30,24 @@ const loadView = async (type, data) => {
 
             if (data.members.length <= 0) DOM.dashboard.innerHTML = `<h2>Others in this room will show up here...</h2>`
             else if (data.members.length > 0)  {
+                DOM.dashboard.innerHTML = ''
                 let members = []
                 for (let i = 0; i < data.members.length; i++) {
-                    members.push({ name: data.members[i].name, id: data.members[i].id, mic: false })
+                    members.push({ name: data.members[i].name, id: data.members[i].id, mic: data.members[i].mic })
 
-                    DOM.dashboard.innerHTML = `
-                        <div class="member" data-id='${data.members[i].id}'>
-                            <h3>${data.members[i].name} <i class="fas fa-microphone member-mic"></i></h3>
-                        </div>
-                    `
+                    if (data.members[i].mic) {
+                        DOM.dashboard.innerHTML += `
+                            <div class="member" data-id='${data.members[i].id}'>
+                                <h3>${data.members[i].name} <i style="color: blue" class="fas fa-microphone member-mic"></i></h3>
+                            </div>
+                        `
+                    } else if (!data.members[i].mic) {
+                        DOM.dashboard.innerHTML += `
+                            <div class="member" data-id='${data.members[i].id}'>
+                                <h3>${data.members[i].name} <i style="color: #333333" class="fas fa-microphone member-mic"></i></h3>
+                            </div>
+                        `
+                    }
                 }
 
                 await messageBackground('update user', { members: members})

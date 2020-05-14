@@ -37,7 +37,8 @@ const disconnection = () => {
             name: null,
             mic: false,
             tabID: null,
-            members: []
+            members: [],
+            id: null
         }
 
         chrome.runtime.sendMessage({
