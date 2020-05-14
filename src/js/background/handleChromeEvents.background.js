@@ -29,6 +29,8 @@ const handleTabRemove = (tabId, changeInfo, tab) => {
             user = { // data about the user
                 roomname: null,
                 name: null,
+                id: null,
+                members: [],
                 mic: false,
                 tabID: null
             }

@@ -45,6 +45,8 @@ const processLeaveRoom = async respond => {
         user = { // data about the user
             roomname: null,
             name: null,
+            id: null,
+            members: [],
             mic: false,
             tabID: null
         }

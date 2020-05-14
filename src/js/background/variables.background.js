@@ -7,6 +7,8 @@ const networkVideo = { // stores objects with the route or url that has the netw
 let user = { // data about the user
     roomname: null,
     name: null,
+    id: null,
     mic: false,
-    tabID: null
+    tabID: null,
+    members: []
 }

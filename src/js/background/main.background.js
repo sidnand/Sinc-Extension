@@ -15,6 +15,9 @@ const main = () => {
     // notifications from the server
     socket.on('notification', notification => handleServerMessage('notification', notification))
 
+    socket.on('new member', memberData => handleServerMessage('new member', memberData))
+    socket.on('remove member', id => handleServerMessage('remove member', id))
+
     // on disconnect
     socket.on('disconnect', disconnection)
 
@@ -33,7 +36,8 @@ const disconnection = () => {
             roomname: null,
             name: null,
             mic: false,
-            tabID: null
+            tabID: null,
+            members: []
         }
 
         chrome.runtime.sendMessage({

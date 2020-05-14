@@ -9,4 +9,7 @@ let handleBackgroundMessage = async (request, sender, respond) => {
         respond(null)
     }
 
+    if (request.message === 'new member') addNewMember(request.data.name, request.data.id)
+    if (request.message === 'remove member') removeMember(request.data)
+
 }

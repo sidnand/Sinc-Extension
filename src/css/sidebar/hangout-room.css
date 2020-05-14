@@ -26,3 +26,28 @@
     color: #fff;
     width: 70px;
 }
+
+#hangout-room-dashboard {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+#hangout-room-dashboard h2 {
+    font-size: 1.2em;
+    color: #666;
+    margin-top: 20%;
+}
+
+.member {
+    padding: 10px;
+}
+
+.member-mic {
+    padding: 10px;
+    color: #333;
+    font-size: 1.2em;
+}

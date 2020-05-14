@@ -23,6 +23,7 @@ const DOM = {
         roomLogon: document.querySelector('#view-logon'),
         hangoutArea: document.querySelector('#view-hangout')
     },
+    dashboard: document.querySelector('#hangout-room-dashboard'),
     allViews: document.querySelectorAll('.view'),
     settingsMenu: document.querySelector('#settings-menu')
 }

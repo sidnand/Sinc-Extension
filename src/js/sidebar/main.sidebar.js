@@ -3,6 +3,7 @@ const main = async () => {
     // check if user is in room and inital ui for that room
     await loadSettings()
     await initalSetup()
+    // loadView('hangout area', { user: { roomname: 'Test Kitchen' } })
 
     // listen for messages from the extension
     chrome.runtime.onMessage.addListener((request, sender, respond) => {
@@ -19,7 +20,7 @@ const main = async () => {
     DOM.button.generateRoomname.addEventListener('click', generateRoomname)
 
     DOM.button.mic.addEventListener('click', toggleMic)
-    DOM.button.settings.addEventListener('click', toggleSettings)
+    // DOM.button.settings.addEventListener('click', toggleSettings)
 
 }
 
@@ -32,7 +33,7 @@ let initalSetup = async () => {
         loadView('room logon')
     } else if (user.roomname !== null) {
         await connectRTC(user.roomname)
-        loadView('hangout area', user)
+        loadView('hangout area', { user: user, members: user.members })
     }
 
     // check if user was on a call
@@ -68,9 +69,9 @@ const createOrJoinRoom = async serverMessage => {
         // if success load new section
         if (response.type === 'success') {
             // update user data and get back user
-            let user = await messageBackground('update user', { roomname: response.data, name: text.name })
+            let user = await messageBackground('update user', { roomname: response.data.roomname, id: response.data.id, name: text.name })
             // update sidebar
-            loadView('hangout area', user)
+            loadView('hangout area', { user: user, members: response.data.members })
             await connectRTC(user.roomname)
         } else if (response.type === 'error') loadView('room logon')
     }
@@ -106,11 +107,13 @@ const toggleMic = async () => {
     if (!user.mic) {
         await enterCall()
         await messageBackground('notification', `${user.name} has entered the call`)
+        await send({ memberMic: { id: user.id, mic: true } })
         await messageBackground('update user', { mic: true })
         showMicOn()
     } else if (user.mic) {
         exitCall()
         await messageBackground('notification', `${user.name} has left the call`)
+        await send({ memberMic: { id: user.id, mic: false } })
         await messageBackground('update user', { mic: false })
         showMicOff()
     }
