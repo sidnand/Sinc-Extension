@@ -28,10 +28,9 @@ const DOM = {
     settingsMenu: document.querySelector('#settings-menu')
 }
 
-let audioTag = document.createElement('audio')
 const micToggleCol = { on: 'blue', off: '#333333' }
 let settings = {
-    volume: 1
+    volume: 0.5
 }
 
 const emojies = {

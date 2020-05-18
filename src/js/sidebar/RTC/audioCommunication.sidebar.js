@@ -1,5 +1,14 @@
 connection.mediaConstraints = {
-    audio: true,
+    audio: {
+        mandatory: {
+            echoCancellation: false, // disabling audio processing
+            googAutoGainControl: true,
+            googNoiseSuppression: true,
+            googHighpassFilter: true,
+            googTypingNoiseDetection: true,
+            //googAudioMirroring: true
+        },
+    },
     video: false
 }
 
@@ -11,8 +20,18 @@ connection.sdpConstraints.mandatory = {
 // when stream has started
 connection.onstream = async e => {
     if (e.userid !== connection.userid) {
-        audioTag.srcObject = e.stream
-        audioTag.play()
+        let tag = e.mediaElement
+        tag.controls = false
+        tag.volume = settings.volume
+        document.body.appendChild(tag)
+    }
+}
+
+connection.onstreamended = async e => {
+    if (e.userid !== connection.userid) {
+        let tag = document.getElementById(e.mediaElement.id)
+        tag.parentElement.removeChild(tag)
+        console.log(document.getElementById(e.mediaElement.id))
     }
 }
 
@@ -21,10 +40,7 @@ const enterCall = async () => {
     let promise = new Promise((resolve, reject) => {
         connection.addStream({
             audio: true,
-            streamCallback: async stream => {
-                let user = await messageBackground('get user')
-                resolve(stream)
-            }
+            streamCallback: async stream => resolve(stream)
         })
     })
 
@@ -33,7 +49,9 @@ const enterCall = async () => {
 
 // exit the call
 const exitCall = async () => {
-    audioTag.pause()
+    let tags = document.getElementsByTagName('audio')
+    for (let i = 0; i < tags.length; i++) tags[i].parentElement.removeChild(tags[i])
+
     connection.streamEvents.selectAll({
         local: true
     }).forEach(function (streamEvent) {
