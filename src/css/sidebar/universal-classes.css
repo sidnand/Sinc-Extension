@@ -53,12 +53,19 @@
   text-align: center;
   border-radius: 6px;
   padding: 5px;
-  bottom: 120%;
-  font-size: .9em;
-  left: 50%;
-  margin-left: -60px;
+  font-size: 12px;
   position: absolute;
   z-index: 1;
+}
+
+.tooltip .tooltip-top {
+    bottom: 120%;
+    left: 50%;
+}
+
+.tooltip .tooltip-bottom {
+    top: 100%;
+    left: 50%;
 }
 
 .tooltip:hover .tooltiptext {
@@ -68,10 +75,21 @@
 .tooltip .tooltiptext::after {
   content: " ";
   position: absolute;
-  top: 100%;
   left: 50%;
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: #eee transparent transparent transparent;
 }
+
+.tooltip .tooltip-top::after {
+    top: 100%;
+    border-color: #eee transparent transparent transparent;
+}
+
+.tooltip .tooltip-bottom::after {
+    bottom: 100%;
+    border-color: transparent transparent #eee transparent;
+}
+
+#btn-generate-roomname .tooltiptext { margin-left: -60px; }
+#btn-mic .tooltiptext { margin-left: -65px; }
