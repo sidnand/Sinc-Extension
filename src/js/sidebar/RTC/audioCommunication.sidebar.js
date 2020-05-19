@@ -30,8 +30,7 @@ connection.onstream = async e => {
 connection.onstreamended = async e => {
     if (e.userid !== connection.userid) {
         let tag = document.getElementById(e.mediaElement.id)
-        tag.parentElement.removeChild(tag)
-        console.log(document.getElementById(e.mediaElement.id))
+        if (tag) tag.parentElement.removeChild(tag)
     }
 }
 
