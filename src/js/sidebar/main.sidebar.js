@@ -24,6 +24,7 @@ const main = async () => {
     
     DOM.button.settings.addEventListener('click', toggleSettings)
     DOM.input.volume.addEventListener('change', () => updateVolume(DOM.input.volume.value))
+    DOM.input.sidebarFullscreen.addEventListener('change', () => updateSidebarFullscreen(DOM.input.sidebarFullscreen.checked))
 
 }
 
@@ -127,20 +128,18 @@ const toggleMic = async () => {
 
 // checks if there is a new version and shows user whats new
 const showUpdates = async () => {
-    await setStorage('version', undefined)
-
     let manifestData = chrome.runtime.getManifest()
     let version = manifestData.version
 
-    let v = await getStorage('version')
+    let v = await new Promise((resolve, reject) => chrome.storage.sync.get(['version'], result => resolve(result.version)))
     let s = `<p>Sinc has updated. Check out whats new: <a href="${whatsNewPage}" target="_blank">Development Blog - Latest Version</a></p>`
 
     if (v != version) {
         DOM.text.sidebarNotification.innerHTML = s
 
         DOM.text.sidebarNotification.querySelector('a').addEventListener('click', async () => {
+            await new Promise((resolve, reject) => chrome.storage.sync.set({ "version": version }, result => resolve()))
             DOM.text.sidebarNotification.innerHTML = ''
-            await setStorage('version', version)
         })
     }
 }

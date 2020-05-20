@@ -1,17 +1,11 @@
 const netflixVideoURL = 'netflix.com/watch/'
 const config = { attributes: false, childList: true, subtree: true } // for mutantobserver
 
-const videoContainerSelector = '.NFPlayer' // container for fullscreen videos
-
 let videoPlayer, sessionId, player, videoTag
 let fromServer = false
 let targetNode; // node that will get observed
 
-let fullscreen = false
-
 const main = () => {
-    document.addEventListener("fullscreenchange", changeNotificationOverlay)
-
     window.postMessage({ from: 'detectscript', to: 'background', message: 'set tab id' })
 
     locationChange()
@@ -108,17 +102,6 @@ const pause = () => {
 }
 
 const seek = time => { if (player !== undefined) player.seek(time) }
-
-// changes the parent container for toastify
-const changeNotificationOverlay = () => {
-    if (fullscreen) {
-        window.postMessage({ from: 'detectscript', to: 'contentscript', message: 'change toastify selector', data: 'body' })
-        fullscreen = false
-    } else if (!fullscreen) {
-        window.postMessage({ from: 'detectscript', to: 'contentscript', message: 'change toastify selector', data: videoContainerSelector })
-        fullscreen = true
-    }
-}
 
 // setup event handler for location change detection
 const locationChange = () => {

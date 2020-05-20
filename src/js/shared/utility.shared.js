@@ -7,15 +7,3 @@ const messageContentScript = (from, message, data = null) => {
         chrome.tabs.sendMessage(tabs[0].id, { from: from, to: 'contentscript', message: message, data: data })
     })
 }
-
-// gets a key from local storage
-// @param key : local storage key
-const getStorage = async key => {
-    let promise = new Promise((resolve, reject) => chrome.storage.sync.get(['key'], result => resolve(result.key)))
-
-    return await promise
-}
-
-// set a key to local storage
-// @param data : { key, value }
-const setStorage = async (key, value) => await new Promise((resolve, reject) => chrome.storage.sync.set({ key: value }, result => resolve()))

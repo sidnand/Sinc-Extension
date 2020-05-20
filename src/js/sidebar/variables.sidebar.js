@@ -11,7 +11,9 @@ const DOM = {
         name: document.querySelector('#input-membername'),
         roomname: document.querySelector('#input-roomname'),
 
-        volume: document.querySelector('#input-volume')
+        // settings
+        volume: document.querySelector('#input-volume'),
+        sidebarFullscreen: document.querySelector('#fullscreen-sidebar')
     },
     text: {
         roomname: document.querySelector('#roomname'),
@@ -29,11 +31,12 @@ const DOM = {
     settingsMenu: document.querySelector('#settings-menu')
 }
 
-const whatsNewPage = 'https://google.ca'
+const whatsNewPage = 'https://sidnand.github.io/Sinc-Website/blog.html#version_one_three'
 const micToggleCol = { on: 'blue', off: '#333333' }
 
 let settings = {
-    volume: 0.5
+    volume: 0.5,
+    showSidebarInFullscreen: false
 }
 
 const emojies = {

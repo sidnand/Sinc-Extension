@@ -7,7 +7,12 @@ const detectScripts = {
     netflix: 'src/js/contentscript/inject/detectscripts/netflix.detect.contentscript.js'
 }
 
+const videoContainerSelector = '.NFPlayer' // container for fullscreen videos
+
 let toastifySelector = 'body'
+let fullscreen = false
+let showSidebarOnFullscreen
+let sidebar
 
 const main = () => {
     
@@ -21,7 +26,6 @@ const main = () => {
         if (request.data.from === 'detectscript') {
             if (request.data.to === 'contentscript') {
                 if (request.data.message === 'notification') message('neutral', request.data.data)
-                if (request.data.message === 'change toastify selector') toastifySelector = request.data.data
             }
             
             chrome.runtime.sendMessage({ from: 'contentscript', to: request.data.to, message: request.data.message, data: request.data.data }) // send message
@@ -41,6 +45,8 @@ const main = () => {
                 if (request.message === 'play') location.href = "javascript:play(); void 0";
                 if (request.message === 'pause') location.href = "javascript:pause(); void 0";
                 if (request.message === 'seek') location.href = `javascript:seek(${request.data}); void 0`;
+
+                if (request.message === 'show sidebar in fullscreen') showSidebarOnFullscreen = request.data
             }
 
             if (request.from === 'background') {
@@ -71,6 +77,22 @@ const main = () => {
         if (!isInjected(detectScripts[name]), 'script') injectScript(detectScripts[name])
     }
 
+    document.addEventListener("fullscreenchange", () => {
+
+        if (fullscreen) {
+            toastifySelector = 'body'
+            fullscreen = false
+
+            if (showSidebarOnFullscreen) document.body.appendChild(sidebar)
+        } else if (!fullscreen) {
+            toastifySelector = videoContainerSelector
+            fullscreen = true
+
+            if (showSidebarOnFullscreen) document.querySelector(videoContainerSelector).appendChild(sidebar)
+        }
+
+    })
+
 }
 
 // injects the sidebar
@@ -83,6 +105,7 @@ const injectSidebar = () => {
     iframe.setAttribute('allow', 'microphone, camera')
     iframe.src = chrome.extension.getURL(sidebarURL)
 
+    sidebar = iframe
     document.body.appendChild(iframe)
 }
 
