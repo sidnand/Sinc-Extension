@@ -7,6 +7,8 @@ const detectScripts = {
     netflix: 'src/js/contentscript/inject/detectscripts/netflix.detect.contentscript.js'
 }
 
+let toastifySelector = 'body'
+
 const main = () => {
     
     // listen for messages
@@ -19,6 +21,7 @@ const main = () => {
         if (request.data.from === 'detectscript') {
             if (request.data.to === 'contentscript') {
                 if (request.data.message === 'notification') message('neutral', request.data.data)
+                if (request.data.message === 'change toastify selector') toastifySelector = request.data.data
             }
             
             chrome.runtime.sendMessage({ from: 'contentscript', to: request.data.to, message: request.data.message, data: request.data.data }) // send message
@@ -113,7 +116,8 @@ const message = (type, message) => {
         text: message,
         duration: 3000,
         gravity: 'top',
-        classes: "toast"
+        classes: 'toast',
+        selector: toastifySelector
     }
 
     if (type === 'success') {
