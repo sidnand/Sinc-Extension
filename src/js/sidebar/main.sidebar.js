@@ -1,6 +1,7 @@
 const main = async () => {
     
     // check if user is in room and inital ui for that room
+    await showUpdates()
     await loadSettings()
     await initalSetup()
     // loadView('hangout area', { user: { roomname: 'Test Kitchen' } })
@@ -121,6 +122,26 @@ const toggleMic = async () => {
         await send({ memberMic: { id: user.id, mic: false } })
         await messageBackground('update user', { mic: false })
         showMicOff()
+    }
+}
+
+// checks if there is a new version and shows user whats new
+const showUpdates = async () => {
+    await setStorage('version', undefined)
+
+    let manifestData = chrome.runtime.getManifest()
+    let version = manifestData.version
+
+    let v = await getStorage('version')
+    let s = `<p>Sinc has updated. Check out whats new: <a href="${whatsNewPage}" target="_blank">Development Blog - Latest Version</a></p>`
+
+    if (v != version) {
+        DOM.text.sidebarNotification.innerHTML = s
+
+        DOM.text.sidebarNotification.querySelector('a').addEventListener('click', async () => {
+            DOM.text.sidebarNotification.innerHTML = ''
+            await setStorage('version', version)
+        })
     }
 }
 

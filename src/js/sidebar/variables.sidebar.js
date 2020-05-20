@@ -15,7 +15,8 @@ const DOM = {
     },
     text: {
         roomname: document.querySelector('#roomname'),
-        callVolume: document.querySelector('#call-volume')
+        callVolume: document.querySelector('#call-volume'),
+        sidebarNotification: document.querySelector('#sidebar-notification')
     },
     view: {
         loading: document.querySelector('#view-loading'),
@@ -28,7 +29,9 @@ const DOM = {
     settingsMenu: document.querySelector('#settings-menu')
 }
 
+const whatsNewPage = 'https://google.ca'
 const micToggleCol = { on: 'blue', off: '#333333' }
+
 let settings = {
     volume: 0.5
 }

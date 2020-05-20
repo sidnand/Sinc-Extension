@@ -18,12 +18,37 @@
     margin: 0 auto;
 }
 
+#sidebar-notification p {
+    text-align: center;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+#sidebar-notification a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
 #footer {
     position: fixed;
-    flex-direction: row-reverse;
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: space-between;
     width: 100%;
     bottom: 0;
+}
+
+#footer #blog { padding: 5px; width: 70px; margin-bottom: 5px; }
+
+#footer a {
+    text-decoration: none;
+    font-size: 1em;
+    color: #333;
 }
 
 /* LOADER MODIFICATIONS */
