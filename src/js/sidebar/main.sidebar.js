@@ -64,7 +64,6 @@ const createOrJoinRoom = async serverMessage => {
         DOM.input.roomname.value = ''
         DOM.input.name.value = ''
         loadView('loading')
-        
 
         // send to background and wait for a response
         let response = await messageBackground(serverMessage, { roomname: text.roomname, name: text.name })
@@ -77,6 +76,11 @@ const createOrJoinRoom = async serverMessage => {
             // update sidebar
             loadView('hangout area', { user: user, members: response.data.members })
             await connectRTC(user.roomname)
+            if (response.data.videoID !== undefined) {
+                // redirect to video url
+                await messageBackground('set resync', true)
+                chrome.tabs.update(null, { url: `https://netflix.com/watch/${response.data.videoID}` })
+            }
         } else if (response.type === 'error') loadView('room logon')
     }
 }

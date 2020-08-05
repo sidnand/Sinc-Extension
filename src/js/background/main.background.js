@@ -10,13 +10,16 @@ const main = () => {
 
     // listen to messages from server
     socket.on('update video', videoID => handleServerMessage('update video', videoID))
-    socket.on('start sync', videoID => handleServerMessage('start sync'))
+    socket.on('start sync', () => handleServerMessage('start sync'))
 
     // notifications from the server
     socket.on('notification', notification => handleServerMessage('notification', notification))
 
     socket.on('new member', memberData => handleServerMessage('new member', memberData))
     socket.on('remove member', id => handleServerMessage('remove member', id))
+
+    socket.on('get video data', user => handleServerMessage('get video data', user))
+    socket.on('resync user', data => handleServerMessage('resync user', data))
 
     // on disconnect
     socket.on('disconnect', disconnection)

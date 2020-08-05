@@ -21,6 +21,11 @@ let handleSidebarMessage = (request, sender, respond) => {
 
     if (request.message === 'generate roomname') { socket.emit('generate roomname', response => respond(response)); return true }
 
+    if (request.message === 'set resync') {
+        resyncUser = request.data
+        respond(resyncUser)
+    }
+
 }
 
 const processCreateOrJoinRoom = async (message, data, respond) => {

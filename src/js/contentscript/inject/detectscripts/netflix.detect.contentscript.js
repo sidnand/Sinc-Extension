@@ -52,17 +52,22 @@ let initalizeSync = isInRoom => {
 
                 window.postMessage({ from: 'detectscript', to: 'contentscript', message: 'notification', data: 'Video has loaded, waiting for others' })
                 console.log('Video tag loaded')
-                window.postMessage({ from: 'detectscript', to: 'background', message: 'user is setup' }) // send message that inital sync is done
 
+                window.postMessage({ from: 'detectscript', to: 'background', message: 'user is setup' }) // send message that inital sync is done
             }
         }, 100)
     }
 }
 
-let startSync = () => {
+let startSync = (resync = false, isPlaying = null, time = null) => {
     window.postMessage({ from: 'detectscript', to: 'contentscript', message: 'notification', data: 'Everyone is setup, starting video' })
     console.log('All users have joined. starting video')
-    player.seek(0)
+
+    if (resync) {
+        player.seek(time)
+        if (isPlaying) play()
+        else if (!isPlaying) pause()
+    } else if (!resync) player.seek(0)
 
     // video listeners
     videoTag.addEventListener('play', () => { if (!fromServer) window.postMessage({ from: 'detectscript', to: 'sidebar', message: 'play' }) })
@@ -123,5 +128,13 @@ const locationChange = () => {
 // updates the current video
 // @param id : video id
 const updateVideo = id => window.location.href = `https://netflix.com/watch/${id}`
+
+const resync = data => {
+    console.log(data)
+}
+
+const getVideoData = () => {
+    window.postMessage({ from: 'detectscript', to: 'background', message: 'video data', data: { time: player.getCurrentTime(), isPlaying: player.isPlaying() } })
+}
 
 main()

@@ -12,3 +12,6 @@ let user = { // data about the user
     tabID: null,
     members: []
 }
+
+resyncUser = false
+syncUser = null

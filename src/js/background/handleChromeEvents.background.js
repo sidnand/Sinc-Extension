@@ -7,11 +7,13 @@ const handleTabUpdate = async (tabId, changeInfo, tab) => {
 
                 if (tab.url.includes(networkVideo[getCurrentNetwork(tab.url)])) {
 
-                    // send request to change video on room
-                    let videoID = getVideoID(tab.url)
+                    if (!resyncUser) {
+                        // send request to change video on room
+                        let videoID = getVideoID(tab.url)
 
-                    // update video on server end
-                    socket.emit('update video', user.roomname, videoID)
+                        // update video on server end
+                        socket.emit('update video', user.roomname, videoID)
+                    }
 
                 }
 

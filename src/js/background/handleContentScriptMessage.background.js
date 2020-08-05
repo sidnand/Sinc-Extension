@@ -15,7 +15,15 @@ let handleContentScriptMessage = (request, sender, respond) => {
     }
     // when this user's video is loaded
     if (request.message === 'user is setup') {
-        if (user.roomname !== null) socket.emit('update setup count', user.roomname)
+        if (user.roomname !== null) {
+            socket.emit('update setup count', user.roomname, resyncUser)
+            resyncUser = false
+        }
+    }
+
+    if (request.message === 'video data') {
+        if (syncUser != null) socket.emit('resync user', { videoData: request.data, syncUser: syncUser, roomname: user.roomname })
+        syncUser = null
     }
 
     if (user.roomname !== null) {
