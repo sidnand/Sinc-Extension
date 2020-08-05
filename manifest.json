@@ -1,6 +1,6 @@
 {
     "name": "Sinc",
-    "version": "1.3",
+    "version": "1.4",
     "description": "Watch Netflix anywhere, at anytime and with anyone.",
     "permissions": [ "tabs", "storage" ],
     "icons": {
