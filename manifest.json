@@ -1,7 +1,7 @@
 {
     "name": "Sinc - Watch Netflix Together",
-    "version": "1.4",
-    "description": "Sinc is a simple extension that allows you and your friends and families to watch Netflxi together. All you do is make a room, and other can join that room. From there, if you watch a video, it gets synced with everyone else in the room. It offers a group call functionality so you can chat while watching.",
+    "version": "1.4.1",
+    "description": "Sinc allows you and others to watch Netflix together. It offers a group call functionality so you can chat while watching.",
     "permissions": [ "tabs", "storage" ],
     "icons": {
         "16": "src/images/ico/16x16.png",
