@@ -43,7 +43,10 @@
     bottom: 0;
 }
 
-#footer #blog { padding: 5px; width: 70px; margin-bottom: 5px; }
+#footer .btn { padding: 5px;  margin-bottom: 10px; }
+
+#footer #blog { width: 70px; }
+#footer #rating { width: 120px; }
 
 #footer a {
     text-decoration: none;

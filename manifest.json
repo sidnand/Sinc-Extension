@@ -1,6 +1,6 @@
 {
     "name": "Sinc - Watch Netflix Together",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "description": "Sinc allows you and others to watch Netflix together. It offers a group call functionality so you can chat while watching.",
     "permissions": [ "tabs", "storage" ],
     "icons": {
