@@ -108,7 +108,7 @@ const injectSidebar = () => {
 
     iframe.style.zIndex = "9000000000000000000";
     iframe.frameBorder = "none";
-    iframe.setAttribute('allow', 'microphone, camera')
+    iframe.setAttribute('allow', 'microphone')
     iframe.src = chrome.extension.getURL(sidebarURL)
 
     sidebar = iframe
